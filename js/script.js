@@ -7,14 +7,33 @@ const getImage = async function(){
     const res = await fetch("https://picsum.photos/v2/list?limit=100");
     const images = await res.json();
     console.log(images);
+    selectRandomImage(images);
 
+};
+
+
+
+
+
+const selectRandomImage = function(images){
+    const randomIndex = Math.floor(Math.floor(Math.random() * images.length));
+    const randomImage = images[randomIndex];
+ //   console.log(randomImage);
+ displayImage(randomImage);
 };
 
 getImage();
 
-/**
- 
-In the value of images, parse the data captured in the res variable using the .json(). Hint: Don’t forget to use the await keyword.
-Log out the result of images in the console. Outside the function, make sure to call the getImage() function to see the results.
- 
- */
+
+const displayImage = function (randomImage) {
+    const author = randomImage.author;
+    const imageAddress = randomImage.download_url;
+    authorSpan.innerText = author;
+    img.src = imageAddress;
+    imgDiv.classList.remove("hide");
+  };
+
+
+button.addEventListener("click", function() {
+    getImage();
+});
